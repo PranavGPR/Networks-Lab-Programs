@@ -22,6 +22,7 @@ public class FileClient {
             bos.write(contents, 0, bytesRead);
 
         bos.flush();
+        bos.close();
         socket.close();
         System.out.println("File saved successfully!");
     }

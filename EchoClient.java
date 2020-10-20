@@ -15,6 +15,7 @@ public class EchoClient {
                     System.out.println(line);
                 line = con.readLine();
                 w.println(line);
+                s.close();
             } while (!line.trim().equals("bye"));
         } catch (Exception err) {
             System.err.println(err);

@@ -21,7 +21,7 @@ public class FileServer {
         byte[] contents;
         long fileLength = file.length();
         long current = 0;
-        long start = System.nanoTime();
+        // long start = System.nanoTime();
         while (current != fileLength) {
             int size = 10000;
             if (fileLength - current >= size)
@@ -36,6 +36,7 @@ public class FileServer {
             System.out.print("Sending file ... " + (current * 100) / fileLength + "% complete!");
         }
         os.flush();
+        bis.close();
         // File transfer done. Close the socket connection!
         socket.close();
         ssock.close();
