@@ -1,42 +1,32 @@
-
-// Java program to read and download webpage in html file 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.MalformedURLException;
+import java.io.*;
+import java.net.*;
 
-public class download {
+public class SocketHTTPClient {
+  public static void main(String[] args) {
+    String hostName = "www.google.com";
+    int portNumber = 80;
 
-    public static void DownloadWebPage(String webpage) {
-        try {
-
-            // Create URL object
-            URL url = new URL(webpage);
-            BufferedReader readr = new BufferedReader(new InputStreamReader(url.openStream()));
-
-            // Enter filename in which you want to download
-            BufferedWriter writer = new BufferedWriter(new FileWriter("Download.html"));
-
-            // read each line from stream till end
-            String line;
-            while ((line = readr.readLine()) != null) {
-                writer.write(line);
-            }
-
-            readr.close();
-            writer.close();
-            System.out.println("Successfully Downloaded.");
-        }
-
-        // Exceptions
-        catch (MalformedURLException mue) {
-            System.out.println("Malformed URL Exception raised");
-        } catch (IOException ie) {
-            System.out.println("IOException raised");
-        }
+    try {
+      Socket socket = new Socket(hostName, portNumber);
+      PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+BufferedReader in = new BufferedReader(new   	InputStreamReader(socket.getInputStream()));
+      out.println("GET / HTTP/1.1\nHost: www.google.com\n\n");
+      String inputLine;
+      while ((inputLine = in.readLine()) != null) {
+        System.out.println(inputLine);
+      }
+      return;
+    } catch (UnknownHostException e) {
+        System.err.println("Don't know about host " + hostName);
+        System.exit(1);
+    } catch (IOException e) {
+        System.err.println("Couldn't get I/O for the connection to " + hostName);
+        System.exit(1);
     }
-
-    public static void main(String args[]) throws IOException {
-        String url = "https://www.devkrish.tech";
-        DownloadWebPage(url);
-    }
+  }
 }
