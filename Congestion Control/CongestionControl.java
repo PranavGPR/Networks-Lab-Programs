@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 class Queue {
@@ -39,6 +38,7 @@ class Queue {
             }
         }
         System.out.println();
+        in.close();
     }
 }
 
